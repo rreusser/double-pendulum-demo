@@ -3,3 +3,9 @@ html, body {
   padding: 0;
   background-color: black;
 }
+
+.gh-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

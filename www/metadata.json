@@ -2,20 +2,20 @@
   "title": "Double pendulum",
   "appName": "double-pendulum",
   "camelizedAppName": "doublePendulum",
-  "description": "",
+  "description": "Just a double pendulum",
   "ghOrgOrUser": "rreusser",
   "metaTags": {
     "site": "Double pendulum",
     "title": "Double pendulum",
-    "description": "",
+    "description": "Just a double pendulum",
     "twitter:card": "summary_large_image",
     "twitter:title": "Double pendulum",
-    "twitter:site": "@your_twitter_handle",
-    "twitter:description": "",
-    "twitter:image": "images/screenshot.png",
-    "og:image": "images/screenshot.png",
+    "twitter:site": "@rickyreusser",
+    "twitter:description": "Just a double pendulum",
+    "twitter:image": "images/screenshot.jpg",
+    "og:image": "images/screenshot.jpg",
     "og:site_name": "Double pendulum",
     "og:title": "Double pendulum",
-    "og:description": ""
+    "og:description": "Just a double pendulum"
   }
 }
