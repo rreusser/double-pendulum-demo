@@ -1,5 +1,5 @@
 {
-  "name": "double-pendulum",
+  "name": "double-pendulum-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -16,10 +16,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/rreusser/double-pendulum.git"
+    "url": "git://github.com/rreusser/double-pendulum-demo.git"
   },
   "bugs": {
-    "url": "https://github.com/rreusser/double-pendulum/issues",
+    "url": "https://github.com/rreusser/double-pendulum-demo/issues",
     "email": "rsreusser@gmail.com"
   },
   "scripts": {
@@ -34,7 +34,7 @@
     "www:build:html": "node www/scripts/build.js --pattern=www/src/*.html --dest=www/dist/",
     "www:build:css": "cp www/src/*.css www/dist/",
     "www:build:fonts": "if [  -e www/src/fonts ]; then cp -r www/src/fonts www/dist/fonts; fi",
-    "www:build:images": "if [ -e www/src/images ]; then cp -r www/src/images www/dist/images; fi",
+    "www:build:images": "rm -rf www/dist/images && if [ -e www/src/images ]; then cp -r www/src/images www/dist/images; fi",
     "www:build": "mkdir -p www/dist && npm run www:build:html && npm run www:build:js && npm run www:build:css && npm run www:build:fonts && npm run www:build:images",
     "www:build:nohtml": "mkdir -p www/dist && npm run www:build:js && npm run www:build:css && npm run www:build:fonts && npm run www:build:images",
     "www:deploy:gh": "npm run www:build && gh-pages -d www/dist",
@@ -46,7 +46,7 @@
     "budo": "^8.3.0",
     "canvas-fit": "^1.5.0",
     "chai": "^3.5.0",
-    "control-panel": "git@github.com:rreusser/control-panel.git#input-events",
+    "control-panel": "file:../control-panel",
     "copy-paste": "^1.3.0",
     "d3": "^4.2.1",
     "escape-html": "^1.0.3",
@@ -70,7 +70,9 @@
     "util-extend": "^1.0.3",
     "xtend": "^4.0.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "qs": "^6.2.1"
+  },
   "semistandard": {
     "globals": [
       "describe",

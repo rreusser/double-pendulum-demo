@@ -7,3 +7,4 @@ window.controlPanel = require('control-panel');
 window.extend = require('util-extend');
 window.d3 = require('d3');
 window.Animation = require('./animation');
+window.qs = require('qs');

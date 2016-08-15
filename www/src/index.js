@@ -9,6 +9,33 @@ var bounds = new Bounds({
   ymax: 1.01
 });
 
+var presets = {
+  spirograph: {
+    gravity: 1,
+    length: 0.5,
+    mass: 1,
+    opacity: 0.06,
+    pendulum: false,
+    ptheta1: 1,
+    ptheta2: 0.87,
+    steps: 2000,
+    theta1: -3.14159265358979,
+    theta2: 1.69017684763131
+  },
+  basic: {
+    gravity: 1,
+    length: 0.5,
+    mass: 1,
+    opacity: 0.5,
+    pendulum: true,
+    ptheta1: 0,
+    ptheta2: 0,
+    steps: 7,
+    theta1: 2.21796441343439,
+    theta2: 1.31946891450771
+  },
+};
+
 var params = {
   gravity: 1,
   length: 0.5,
@@ -35,7 +62,8 @@ var reinitializeParams = ['length', 'gravity', 'mass', 'theta1', 'theta2', 'pthe
 var paused = null;
 var animation = new Animation();
 
-controlPanel([
+var panel = controlPanel([
+  {type: 'select', label: 'preset', options: Object.keys(presets)},
   {type: 'button', label: 'restart', action: restart},
   {type: 'range', label: 'length', min: 0.1, max: 0.5, initial: params.length, steps: 400},
   {type: 'range', label: 'gravity', min: 0, max: 2, initial: params.gravity, steps: 200},
@@ -47,10 +75,23 @@ controlPanel([
   {type: 'range', label: 'opacity', min: 0, max: 1, initial: params.opacity, steps: 100},
   {type: 'range', label: 'steps', min: 1, max: 2000, initial: params.steps, steps: 1999},
   {type: 'checkbox', label: 'pendulum', initial: params.pendulum},
-], {theme: 'dark', position: 'top-left'}).on('input', function (data, label) {
-  svg.style('display', (data.pendulum || paused) ? 'block' : 'none');
+], {theme: 'dark', position: 'top-left'});
+
+panel.on('input', function (data, label) {
   setOpacity(data.opacity);
   extend(params, data);
+
+  console.log('label:', label);
+  if (label === 'preset') {
+    extend(params, presets[data.preset]);
+    panel.set(params);
+    reinitialize();
+    clear();
+    console.log('params:', params);
+  }
+
+  svg.style('display', (data.pendulum || paused) ? 'block' : 'none');
+
   window.location.hash = qs.stringify(params);
 
   if (reinitializeParams.indexOf(label) !== -1) {
