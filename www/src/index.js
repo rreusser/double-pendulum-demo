@@ -34,6 +34,30 @@ var presets = {
     theta1: 2.21796441343439,
     theta2: 1.31946891450771
   },
+  'black hole': {
+    gravity: 0,
+    length: 0.5,
+    mass: 1,
+    opacity: 0.11,
+    pendulum: false,
+    ptheta1: 1,
+    ptheta2: -0.25,
+    steps: 2000,
+    theta1: 1.74672551539593,
+    theta2: -1.68389366232413,
+  },
+  'low-level chaos': {
+    gravity: 1,
+    length: 0.5,
+    mass: 1,
+    opacity: 0.04,
+    pendulum: true,
+    ptheta1: 0.14,
+    ptheta2: 0.05,
+    steps: 1028,
+    theta1: -0.678584013175395,
+    theta2: 0.320442450666159,
+  }
 };
 
 var params = {
@@ -52,7 +76,13 @@ var params = {
 function loadParams () {
   try {
     params = extend(params, qs.parse(window.location.hash.replace(/^#/,'')));
-    for (var key in params) params[key] = Number(params[key]);
+    for (var key in params) {
+      if (key !== 'pendulum') {
+        params[key] = Number(params[key]);
+      } else {
+        params[key] = String(params[key]) === 'true' ? true : false;
+      }
+    }
   } catch (e) {}
 }
 
@@ -61,6 +91,16 @@ loadParams();
 var reinitializeParams = ['length', 'gravity', 'mass', 'theta1', 'theta2', 'ptheta1', 'ptheta2'];
 var paused = null;
 var animation = new Animation();
+
+var controlPanelRoot = document.getElementById('control-panel-root');
+
+controlPanelRoot.addEventListener('mouseenter', function () {
+  controlPanelRoot.classList.add('is-hover');
+}, false);
+
+controlPanelRoot.addEventListener('mouseleave', function () {
+  controlPanelRoot.classList.remove('is-hover');
+}, false);
 
 var panel = controlPanel([
   {type: 'select', label: 'preset', options: Object.keys(presets)},
@@ -75,19 +115,17 @@ var panel = controlPanel([
   {type: 'range', label: 'opacity', min: 0, max: 1, initial: params.opacity, steps: 100},
   {type: 'range', label: 'steps', min: 1, max: 2000, initial: params.steps, steps: 1999},
   {type: 'checkbox', label: 'pendulum', initial: params.pendulum},
-], {theme: 'dark', position: 'top-left'});
+], {theme: 'dark', position: 'top-left', root: controlPanelRoot});
 
 panel.on('input', function (data, label) {
   setOpacity(data.opacity);
   extend(params, data);
 
-  console.log('label:', label);
   if (label === 'preset') {
     extend(params, presets[data.preset]);
     panel.set(params);
     reinitialize();
     clear();
-    console.log('params:', params);
   }
 
   svg.style('display', (data.pendulum || paused) ? 'block' : 'none');
