@@ -12,8 +12,8 @@
     "twitter:title": "Double pendulum",
     "twitter:site": "@rickyreusser",
     "twitter:description": "Just a double pendulum",
-    "twitter:image": "http://demos.rickyreusser.com/double-pendulum/images/screenshot.jpg",
-    "og:image": "http://demos.rickyreusser.com/double-pendulum/images/screenshot.jpg",
+    "twitter:image": "https://rreusser.github.io/double-pendulum/images/screenshot.jpg",
+    "og:image": "https://rreusser.github.io/double-pendulum/images/screenshot.jpg",
     "og:site_name": "Double pendulum",
     "og:title": "Double pendulum",
     "og:description": "Just a double pendulum"
